@@ -1,0 +1,186 @@
+body {
+    --dark-grey--: #2c3333;
+    --green--: #2E4F4F;
+    --blue--: #0E8388;
+    --light--: #CBE4DE;
+
+    background-color: var(--dark-grey--);
+
+    margin: 0;
+    padding: 0;
+}
+
+.first-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+    display: none;
+}
+
+.header {
+    font-size: 64px;
+    color: var(--light--);
+    margin-bottom: 50px;
+}
+
+.select-difficulty {
+    width: 50vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.selection {
+    border: 2px var(--blue--);
+    border-radius: 2px;
+    background-color: var(--blue--);
+    padding: 10px;
+    font-weight: 800;
+    font-size: 32px;
+    color: var(--light--);
+    transition: top ease 0.5s;
+    box-shadow: 2px 2px 2px var(--light--);
+}
+
+.option {
+    width: 12rem;
+}
+
+.icon-selection-container {
+    padding: 15px;
+    margin: 25px;
+}
+
+.icon.selection {
+    font-size: 64px;
+    padding: 32px;
+    margin: 25px;
+}
+
+
+.selection:hover {
+    cursor: pointer;
+    top: -5px;
+    
+}
+
+
+
+/* Game Board */
+
+.play-game-page {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: 1fr;
+}
+
+/* .spacer {
+    grid-column: 1 / span 10;
+    margin: 40px;
+    height: 50px;
+} */
+
+.container {
+    justify-self: center;
+    grid-row: 1 / 2;
+}
+
+.container.right {
+    grid-column: 8 / 9;
+}
+
+.player {
+    color: var(--light--);
+    font-size: 40px;
+    padding: 10px;
+}
+
+.container.left {
+    grid-column: 3 / 4;
+}
+
+.container.center {
+    margin-top: 15rem;
+    grid-column: 4 / 8;
+    padding: 5px;
+    width: 80%;
+}
+
+.game-board {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.top {
+    grid-row: 1 / 2;
+}
+
+.middle {
+    grid-row: 2 / 3;
+}
+
+.bottom {
+    grid-row: 3 / 4;
+}
+
+.row {
+    grid-row: 1 / 4;
+    height: 100%;
+    display: grid;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+@-webkit-keyframes otherGlow {
+    from {
+    text-shadow: 0 0 10px #eeeeee, 0 0 20px #000000, 0 0 30px #000000, 0 0 40px #000000, 
+                0 0 50px #9554b3, 0 0 50px #9554b3, 0 0 50px #9554b3;
+}
+    to {
+    text-shadow: 0 0 20px #eeeeee, 0 0 30px #ff4da6, 0 0 30px #ff4da6, 0 0 50px #ff4da6, 
+                0 0 60px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6;
+    }
+}
+
+@-webkit-keyframes glow {
+    from {
+    text-shadow: 0 0 10px var(--light--), 0 0 20px var(--dark-grey--), 0 0 30px var(--dark-grey--), 0 0 40px var(--dark-grey--), 
+                0 0 50px #9554b3, 0 0 50px #9554b3, 0 0 50px #9554b3;
+}
+    to {
+    text-shadow: 0 0 20px var(--light--), 0 0 30px var(--blue--), 0 0 30px var(--blue--), 0 0 50px var(--blue--), 
+                0 0 60px var(--blue--), 0 0 50px var(--blue--), 0 0 60px var(--blue--);
+    }
+}
+
+.board-segment {
+    background-color: var(--green--);
+    box-sizing: border-box;
+    width: 180px;
+    height: 180px;
+    margin: 10px;
+    text-align: center;
+    box-shadow: 0px 0px 5px 3px var(--blue--);
+    font-size: 9.5rem;
+    color: var(--light--);
+    /* padding: 2px 0; */
+}
+
+.board-segment:hover {
+    cursor: pointer;
+    scale: 1.02;
+}
+
+.x-color {
+    -webkit-animation: glow 1s ease-in-out infinite alternate;
+    -moz-animation: glow 1s ease-in-out infinite alternate;
+    animation: glow 1s ease-in-out infinite alternate;
+}
+
+.o-color {
+    -webkit-animation: otherGlow 1s ease-in-out infinite alternate;
+    -moz-animation: otherGlow 1s ease-in-out infinite alternate;
+    animation: otherGlow 1s ease-in-out infinite alternate;
+}
+
+

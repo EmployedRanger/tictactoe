@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="first-page">
+        <div class="header">
+            <p class="header-title">Tic-Tac-Toe</p>
+        </div>
+        <div class="select-difficulty">
+            <button class="selection option easy">Easy</button>
+            <button class="selection option medium">Medium</button>
+            <button class="selection option hard">Hard</button>
+            <button class="selection option impossible">Impossible</button>
+        </div>
+        <div class="icon-selection-container">
+            <button class="icon selection x-selection">X</button>
+            <button class="icon selection o-selection">O</button>
+        </div>
+        <button class="begin-game">Begin Game</button>
+    </div>
+
+    <div class="play-game-page">
+        <div class="container left">
+            <p class="human player">Player</p>
+            <div class="board-segment x-color">X</div>
+        </div>
+        <div class="container right">
+            <p class="computer player">Computer</p>
+            <div class="board-segment o-color">O</div>
+        </div>
+        <div class="container center">
+            <div class="game-board">
+                <div class="top row">
+                    <div class="board-segment one x-color">X</div>
+                    <div class="board-segment two o-color">O</div>
+                    <div class="board-segment three x-color">X</div>
+                </div>
+                <div class="middle row">
+                    <div class="board-segment four o-color">O</div>
+                    <div class="board-segment five x-color">X</div>
+                    <div class="board-segment six o-color">O</div>
+                </div>
+                <div class="bottom row">  
+                    <div class="board-segment seven x-color">X</div>
+                    <div class="board-segment eight o-color">O</div>
+                    <div class="board-segment nine x-color">X</div>
+                </div>
+            </div>
+        </div>
+
+    
+    </div>
+
+    <script src="javascript.js"></script>
+</body>
+</html>
