@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tic-Tac-Toe</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -41,17 +41,19 @@
                 </div>
             </div>
         </div>
-        <div class="select-difficulty">
-            <button class="selection option easy" value="1" onclick="selectedDiffButton()">Easy</button>
-            <button class="selection option medium" value="2" onclick="selectedDiffButton()">Medium</button>
-            <button class="selection option hard" value="3" onclick="selectedDiffButton()">Hard</button>
-            <button class="selection option impossible selected" onclick="selectedDiffButton()" value="4">Impossible</button>
-        </div>
-        <div class="icon-selection-container">
-            <button class="icon selection x-selection" onclick="selectedIconButton()">X</button>
-            <button class="icon selection o-selection selected" onclick="selectedIconButton()">O</button>
-        </div>
-        <button class="begin-game selection">Begin Game</button>
+        <!-- <form> -->
+            <div class="select-difficulty">
+                <button class="selection option easy" value="1" onclick="computerDiffEasy()">Easy</button>
+                <button class="selection option medium selected" value="2" onclick="computerDiffMedium()">Medium</button>
+                <button class="selection option hard" value="3" onclick="computerDiffHard()">Hard</button>
+                <button class="selection option impossible" value="4" onclick="computerDiffImpossible()">Impossible</button>
+            </div>
+            <div class="icon-selection-container">
+                <button class="icon selection x-selection selected" onclick="selectedIconButton()">X</button>
+                <button class="icon selection o-selection" onclick="selectedIconButton()">O</button>
+            </div>
+            <button class="begin-game selection" onclick="beginGame()">Begin Game</button>
+        <!-- </form> -->
     </div>
 
     <div class="play-game-page">
@@ -93,9 +95,7 @@
             <button class="button main-menu" onclick="reloadPage()">Main Menu</button>
             <button class="button try-again" onclick="playAgain()">Play Again</button>
         </div>
-        
     </div>
-
     <script src="javascript.js"></script>
 </body>
 </html>

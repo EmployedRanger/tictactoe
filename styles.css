@@ -56,6 +56,10 @@ body {
     margin: 8px;
 }
 
+form {
+    margin: 0px;
+}
+
 .option {
     width: 12rem;
 }
