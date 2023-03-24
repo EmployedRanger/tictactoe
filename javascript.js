@@ -8,3 +8,10 @@ function showMenu() {
     playGamePage.style.filter = 'blur(2px)';
 }
 
+function selectedIconButton() {
+
+}
+
+function selectedDiffButton() {
+    
+}
