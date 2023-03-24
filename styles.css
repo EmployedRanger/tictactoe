@@ -74,15 +74,10 @@ body {
     grid-template-rows: 1fr;
 }
 
-/* .spacer {
-    grid-column: 1 / span 10;
-    margin: 40px;
-    height: 50px;
-} */
-
 .container {
     justify-self: center;
     grid-row: 1 / 2;
+    text-align: center;
 }
 
 .container.right {
@@ -92,7 +87,8 @@ body {
 .player {
     color: var(--light--);
     font-size: 40px;
-    padding: 10px;
+    padding-top: 10px;
+    margin-bottom: 0px;
 }
 
 .container.left {
@@ -163,7 +159,6 @@ body {
     box-shadow: 0px 0px 5px 3px var(--blue--);
     font-size: 9.5rem;
     color: var(--light--);
-    /* padding: 2px 0; */
 }
 
 .board-segment:hover {
@@ -181,6 +176,67 @@ body {
     -webkit-animation: otherGlow 1s ease-in-out infinite alternate;
     -moz-animation: otherGlow 1s ease-in-out infinite alternate;
     animation: otherGlow 1s ease-in-out infinite alternate;
+}
+
+/* Pop-up CSS */
+
+.pop-up{
+    z-index: 1;
+    width: 400px;
+    height: 250px;
+    margin: auto;
+    margin-bottom: 10px;
+    background-color: var(--blue--);
+    border-radius: 16px;
+    color: var(--light--);
+    box-shadow: 0px 0px 5px 5px var(--light--);
+}
+
+.top-section {
+    padding: 10px;
+    margin: 10px;
+    font-weight: 600;
+    font-size: 28px;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+
+.winner {
+    margin: 4px;
+    margin-top: 15px;
+}
+
+.button-selection {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 80px;
+}
+
+.main-menu {
+    grid-column: 1 / 2;
+}
+
+.try-again {
+    grid-column: 2 / 3;
+}
+
+.button {
+    padding: 10px;
+    margin: 10px;
+    background-color: var(--dark-grey--);
+    color: var(--light--);
+    border: 2px solid var(--dark-grey--);
+    border-radius: 8px;
+    box-shadow: 1px 0px 8px 1px var(--light--);
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.button:hover {
+    cursor: pointer;
+    border: 2px solid var(--light--);
+    background-color: var(--green--);
 }
 
 
