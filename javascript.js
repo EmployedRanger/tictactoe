@@ -97,8 +97,12 @@ function pageSwitch () {
     const mainMenu = document.querySelector('.first-page');
     const gamePage = document.getElementsByClassName('play-game-page');
     mainMenu.style.display = 'none';
-    gamePage.style.display = 'none';
+    gamePage[1].style.display = 'grid';
 }
 
 
 // factory function to create both players
+
+function reloadPage () {
+    location.reload();
+}
