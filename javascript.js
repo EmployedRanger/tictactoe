@@ -9,12 +9,6 @@ function showMenu() {
     playGamePage.style.filter = 'blur(2px)';
 }
 
-function checkWinningCases () {
-    // Checks to see if there are any winning cases
-        // Switch cases to identify win cases
-    
-}
-
 function computerDiffEasy () {
     removeSelectedClass();
     const selectDiffValue = document.querySelector('.selection.option.easy');
@@ -53,22 +47,39 @@ function removeSelectedClass () {
 }
 
 function playerSelectedXxxxx () {
-    removeSelectedIconClass();
+    RemoveSelectedIconClass();
     const selectedPlayerIcon = document.querySelector('.x-selection');
     selectedPlayerIcon.classList.add('selected');
-    const playerIcon = 1;
-    const computerIcon = 0;
+    const computerIconInsert = document.querySelector('.computer.board-segment');
+    computerIconInsert.innerHTML = 'O';
+    computerIconInsert.classList.add('o-color');
+
+    const humanIconInsert = document.querySelector('.human.board-segment');
+    humanIconInsert.innerHTML = 'X';
+    humanIconInsert.classList.add('x-color');
+    const playerIcon = 'X';
+    const computerIcon = 'O';
+    return [playerIcon, computerIcon];
 }
 
 function playerSelectedOoooo () {
-    removeSelectedIconClass();
+    RemoveSelectedIconClass();
     const selectedPlayerIcon = document.querySelector('.o-selection');
     selectedPlayerIcon.classList.add('selected');
-    const playerIcon = 0;
-    const computerIcon = 1;
+    const computerIconInsert = document.querySelector('.computer.board-segment');
+    computerIconInsert.innerHTML = 'X';
+    computerIconInsert.classList.add('x-color');
+
+    const humanIconInsert = document.querySelector('.human.board-segment');
+    humanIconInsert.innerHTML = 'O';
+    humanIconInsert.classList.add('o-color');
+
+    const playerIcon = 'O';
+    const computerIcon = 'X';
+    return [playerIcon, computerIcon];
 }
 
-function removeSelectedIconClass () {
+function RemoveSelectedIconClass () {
     const iconSelectionOptions = document.querySelectorAll('.icon.selection');
     for (i = 0; i < iconSelectionOptions.length; i++) {
         if (iconSelectionOptions[i].classList.contains('selected')) {
@@ -77,11 +88,93 @@ function removeSelectedIconClass () {
     }
 }
 
+function PageSwitch () {
+    const mainMenu = document.querySelector('.first-page');
+    const gamePage = document.getElementsByClassName('play-game-page');
+    mainMenu.style.display = 'none';
+    gamePage[1].style.display = 'grid';
+    ScreenController();
+}
 
-function beginGame() {
-    
+const Player = (name, icon) => {
+    const getName = () => name;
+    const getIcon = () => icon;
 
-    pageSwitch();
+    return {
+        getName,
+        getIcon
+    };
+}
+
+function Gameboard () {
+    const rows = 3;
+    const columns = 3;
+    const board = [];
+
+    for (let i = 0; i < rows; i++) {
+        board[i] = [];
+        for(let j = 0; j < columns; j++) {
+            board[i].push(BoardSegment());
+        }
+    }
+
+    const getBoard = () => board;
+
+    const selectSquare = (column, player) => {
+        const availableSegments = board.filter((row) => row[column].getValue() === '').map(row => row[column]);
+
+        if (!availableSegments.length) return;
+
+        // More stuff here
+    };
+
+    const printBoard = () => {
+        const boardWithSegmentValues = board.map((row) => row.map((segment) => segment.getValue()));
+        console.log(boardWithSegmentValues);
+    };
+
+    return { getBoard, selectSquare, printBoard };
+}
+
+function BoardSegment() {
+    let value = '';
+
+    const addIcon = (player) => {
+        value = player;
+    };
+
+    const getValue = () => value;
+
+    return {
+        addIcon,
+        getValue
+    };
+}
+
+function GameController(
+    humanPlayerName = 'Player',
+    computerPlayerName = 'Computer'
+) {
+    const humanPlayer = Player(humanPlayerName, playerIcon);
+    const computerPlayer = Player(computerPlayerName, computerIcon);
+    const board = Gameboard();
+
+
+}
+
+function ScreenController() {
+    const game = GameController();
+    const boardDiv = document.querySelector('.game-board');
+
+    const updateScreen = () => {
+        // clears all board segments
+        boardDiv.textContent = '';
+
+        // Gets newest version of game-board
+        const board = game.getBoard();
+        
+    }
+
     // creates both players
     // creates game array
     
@@ -93,16 +186,19 @@ function beginGame() {
     
 }
 
-function pageSwitch () {
-    const mainMenu = document.querySelector('.first-page');
-    const gamePage = document.getElementsByClassName('play-game-page');
-    mainMenu.style.display = 'none';
-    gamePage[1].style.display = 'grid';
+function checkWinningCases () {
+    // Checks to see if there are any winning cases
+        // Switch cases to identify win cases
+    
 }
-
 
 // factory function to create both players
 
 function reloadPage () {
     location.reload();
+}
+
+window.onload = (event) => {
+    computerDiffEasy();
+    playerSelectedXxxxx();
 }
