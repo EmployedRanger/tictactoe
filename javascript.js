@@ -2,8 +2,6 @@ const playGamePage = document.querySelector('.play-game-page');
 const popUp = document.querySelector('.pop-up');
 let difficultySetting = 1;
 
-
-
 function showMenu() {
     popUp.style.display = 'block';
     playGamePage.style.filter = 'blur(2px)';
@@ -46,20 +44,29 @@ function removeSelectedClass () {
     }
 }
 
+let playerIcon = '';
+let computerIcon = '';
+let playerIconArray = '';
+
 function playerSelectedXxxxx () {
     RemoveSelectedIconClass();
     const selectedPlayerIcon = document.querySelector('.x-selection');
     selectedPlayerIcon.classList.add('selected');
     const computerIconInsert = document.querySelector('.computer.board-segment');
     computerIconInsert.innerHTML = 'O';
+    computerIconInsert.classList.remove('x-color');
     computerIconInsert.classList.add('o-color');
 
     const humanIconInsert = document.querySelector('.human.board-segment');
     humanIconInsert.innerHTML = 'X';
+    humanIconInsert.classList.remove('o-color');
     humanIconInsert.classList.add('x-color');
-    const playerIcon = 'X';
-    const computerIcon = 'O';
-    return [playerIcon, computerIcon];
+    playerIcon = 'X';
+    computerIcon = 'O';
+    
+    playerIconArray = [playerIcon, computerIcon];
+    return playerIconArray;
+
 }
 
 function playerSelectedOoooo () {
@@ -68,15 +75,19 @@ function playerSelectedOoooo () {
     selectedPlayerIcon.classList.add('selected');
     const computerIconInsert = document.querySelector('.computer.board-segment');
     computerIconInsert.innerHTML = 'X';
+    computerIconInsert.classList.remove('o-color');
     computerIconInsert.classList.add('x-color');
 
     const humanIconInsert = document.querySelector('.human.board-segment');
     humanIconInsert.innerHTML = 'O';
+    humanIconInsert.classList.remove('x-color');
     humanIconInsert.classList.add('o-color');
 
-    const playerIcon = 'O';
-    const computerIcon = 'X';
-    return [playerIcon, computerIcon];
+    playerIcon = 'O';
+    computerIcon = 'X';
+    playerIconArray = [playerIcon, computerIcon];
+    return playerIconArray;
+
 }
 
 function RemoveSelectedIconClass () {
@@ -89,108 +100,190 @@ function RemoveSelectedIconClass () {
 }
 
 function PageSwitch () {
+    
     const mainMenu = document.querySelector('.first-page');
     const gamePage = document.getElementsByClassName('play-game-page');
     mainMenu.style.display = 'none';
     gamePage[1].style.display = 'grid';
-    ScreenController();
+    // ScreenController(playerIcon, computerIcon);
+    GetBoardElements(playerIconArray);
 }
 
-const Player = (name, icon) => {
-    const getName = () => name;
-    const getIcon = () => icon;
+let currentPlayerIndex = 0;
 
-    return {
-        getName,
-        getIcon
-    };
-}
-
-function Gameboard () {
-    const rows = 3;
-    const columns = 3;
+function GetBoardElements(playerIconArray) {
+    const one = document.querySelector('.one');
+    const two = document.querySelector('.two');
+    const three = document.querySelector('.three');
+    const four = document.querySelector('.four');
+    const five = document.querySelector('.five');
+    const six = document.querySelector('.six');
+    const seven = document.querySelector('.seven');
+    const eight = document.querySelector('.eight');
+    const nine = document.querySelector('.nine');
+    const segmentPieces = document.getElementsByClassName('board-segment');
+    const boardNineSquares = Array.prototype.slice.call(segmentPieces, 13, 22);
     const board = [];
-
-    for (let i = 0; i < rows; i++) {
-        board[i] = [];
-        for(let j = 0; j < columns; j++) {
-            board[i].push(BoardSegment());
-        }
-    }
-
-    const getBoard = () => board;
-
-    const selectSquare = (column, player) => {
-        const availableSegments = board.filter((row) => row[column].getValue() === '').map(row => row[column]);
-
-        if (!availableSegments.length) return;
-
-        // More stuff here
-    };
-
-    const printBoard = () => {
-        const boardWithSegmentValues = board.map((row) => row.map((segment) => segment.getValue()));
-        console.log(boardWithSegmentValues);
-    };
-
-    return { getBoard, selectSquare, printBoard };
+    
+    boardNineSquares.forEach((square, index) => {
+        square.addEventListener('click', () => {
+            const currentPlayerIcon = playerIconArray[currentPlayerIndex]; 
+            if (board[index] === '') {
+                square.innerHTML = currentPlayerIcon;
+                board[index] = currentPlayerIcon;
+                if(currentPlayerIcon === 'X') {
+                    square.classList.add('x-color');
+                } else {
+                    square.classList.add('o-color');
+                }
+                console.log(currentPlayerIcon);
+                console.log(board);
+                currentPlayerIndex = (currentPlayerIndex + 1) % playerIconArray.length;
+                computerTurn(playerIconArray);
+            }
+            // return currentPlayerIcon();
+        });
+        board.push('');
+    });    
+    // playGame(currentPlayerIcon);
 }
 
-function BoardSegment() {
-    let value = '';
-
-    const addIcon = (player) => {
-        value = player;
-    };
-
-    const getValue = () => value;
-
-    return {
-        addIcon,
-        getValue
-    };
-}
-
-function GameController(
-    humanPlayerName = 'Player',
-    computerPlayerName = 'Computer'
-) {
-    const humanPlayer = Player(humanPlayerName, playerIcon);
-    const computerPlayer = Player(computerPlayerName, computerIcon);
-    const board = Gameboard();
-
-
-}
-
-function ScreenController() {
-    const game = GameController();
-    const boardDiv = document.querySelector('.game-board');
-
-    const updateScreen = () => {
-        // clears all board segments
-        boardDiv.textContent = '';
-
-        // Gets newest version of game-board
-        const board = game.getBoard();
+function playGame(currentPlayerIcon) {
+    if (currentPlayerIcon === 'X') {
         
-    }
-
-    // creates both players
-    // creates game array
-    
-    // listens for users input
-    // Returns choice and adds it to game array
-    
-    // Runs computer's choice
-    // Returns choice and adds it to game array
-    
+    } 
 }
 
-function checkWinningCases () {
-    // Checks to see if there are any winning cases
-        // Switch cases to identify win cases
-    
+function computerTurn () {
+    const emptySpaces = document.querySelectorAll('.board')    
 }
+
+
+
+
+
+
+
+// const Player = (name, icon) => {
+//     const getName = () => name;
+//     const getIcon = () => icon;
+
+//     return {
+//         getName,
+//         getIcon
+//     };
+// }
+
+// function Gameboard () {
+//     const rows = 3;
+//     const columns = 3;
+//     const board = [];
+
+//     for (let i = 0; i < rows; i++) {
+//         board[i] = [];
+//         for(let j = 0; j < columns; j++) {
+//             board[i].push(BoardSegment());
+//         }
+//     }
+
+//     const getBoard = () => board;
+
+//     const selectSquare = (column, player) => {
+//         const availableSegments = board.filter((row) => 
+//         row[column].getValue() === '').map(row => row[column]);
+
+//         if (!availableSegments.length) return;
+
+//         // More stuff here
+//     };
+
+//     const printBoard = () => {
+//         const boardWithSegmentValues = board.map((row) => 
+//         row.map((segment) => segment.getValue()));
+//         console.log(boardWithSegmentValues);
+//     };
+
+//     return { getBoard, selectSquare, printBoard };
+// }
+
+// function BoardSegment() {
+//     let value = '';
+
+//     const addIcon = (player) => {
+//         value = player;
+//     };
+
+//     const getValue = () => value;
+
+//     return {
+//         addIcon,
+//         getValue
+//     };
+// }
+
+// function GameController(
+//     playerIcon,
+//     computerIcon,
+//     humanPlayerName = 'Player',
+//     computerPlayerName = 'Computer'
+// ) {
+//     const humanPlayer = Player(humanPlayerName, playerIcon);
+//     console.log('human player is: ', humanPlayer.getIcon);
+//     const computerPlayer = Player(computerPlayerName, computerIcon);
+//     const board = Gameboard();
+//     return {
+//         humanPlayer,
+//         computerPlayer,
+//         board
+//     };
+// }
+
+// function ScreenController(playerIcon, computerIcon) {
+//     const game = GameController(playerIcon, computerIcon);
+//     const boardDiv = document.querySelector('.game-board');
+    
+//     RenderBoard(boardDiv, game.board.getBoard());
+
+//     const updateScreen = () => {
+//         // clears all board segments
+//         boardDiv.textContent = '';
+
+//         // Gets newest version of game-board
+//         const board = game.getBoard();
+
+//         const BoardSegments = boardDiv.querySelectorAll('.board-segment');
+//         BoardSegments.forEach((segment, index) => {
+//             const row = Math.floor(index / 3);
+//             const column = index % 3;
+//             const value = board[row][column].getValue();
+//             segment.textContent = value;
+//         });
+//     }    
+// }
+
+// function RenderBoard(boardDiv, gameBoard) {
+//     // const boardDiv = document.querySelector('.game-board');
+
+//     for(let i = 0; i < 3; i++) {
+//         const rowDiv = document.createElement('div');
+//         rowDiv.classList.add('row');
+//         for(let j = 0; j < 3; j++) {
+//             const segmentDiv = document.createElement('div');
+//             segmentDiv.classList.add('board-segment');
+//             segmentDiv.setAttribute('data-row', i);
+//             segmentDiv.setAttribute('data-column', j);
+//             rowDiv.appendChild(segmentDiv);
+//         }
+//         boardDiv.appendChild(rowDiv);
+//     }
+//     console.log(boardDiv)
+// }
+
+// function checkWinningCases () {
+//     // Checks to see if there are any winning cases
+//         // Switch cases to identify win cases
+    
+// }
 
 // factory function to create both players
 
