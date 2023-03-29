@@ -100,7 +100,6 @@ function RemoveSelectedIconClass () {
 }
 
 function PageSwitch () {
-    
     const mainMenu = document.querySelector('.first-page');
     const gamePage = document.getElementsByClassName('play-game-page');
     mainMenu.style.display = 'none';
@@ -112,20 +111,23 @@ function PageSwitch () {
 let currentPlayerIndex = 0;
 
 function GetBoardElements(playerIconArray) {
-    const one = document.querySelector('.one');
-    const two = document.querySelector('.two');
-    const three = document.querySelector('.three');
-    const four = document.querySelector('.four');
-    const five = document.querySelector('.five');
-    const six = document.querySelector('.six');
-    const seven = document.querySelector('.seven');
-    const eight = document.querySelector('.eight');
-    const nine = document.querySelector('.nine');
+    // const one = document.querySelector('.one');
+    // const two = document.querySelector('.two');
+    // const three = document.querySelector('.three');
+    // const four = document.querySelector('.four');
+    // const five = document.querySelector('.five');
+    // const six = document.querySelector('.six');
+    // const seven = document.querySelector('.seven');
+    // const eight = document.querySelector('.eight');
+    // const nine = document.querySelector('.nine');
     const segmentPieces = document.getElementsByClassName('board-segment');
     const boardNineSquares = Array.prototype.slice.call(segmentPieces, 13, 22);
+    // const boardNineSquares = document.getElementsByClassName('part');
     const board = [];
     
     boardNineSquares.forEach((square, index) => {
+        square.classList.add('part');
+        // console.log(square.className);
         square.addEventListener('click', () => {
             const currentPlayerIcon = playerIconArray[currentPlayerIndex]; 
             if (board[index] === '') {
@@ -136,10 +138,11 @@ function GetBoardElements(playerIconArray) {
                 } else {
                     square.classList.add('o-color');
                 }
-                console.log(currentPlayerIcon);
-                console.log(board);
+                // console.log(currentPlayerIcon);
+                // console.log(board);
                 currentPlayerIndex = (currentPlayerIndex + 1) % playerIconArray.length;
-                computerTurn(playerIconArray);
+                // computerTurn(playerIconArray, currentPlayerIcon, board);
+                playGame(board, currentPlayerIcon);
             }
             // return currentPlayerIcon();
         });
@@ -148,16 +151,57 @@ function GetBoardElements(playerIconArray) {
     // playGame(currentPlayerIcon);
 }
 
-function playGame(currentPlayerIcon) {
+function playGame(board, currentPlayerIcon) {
+    const turnCounter = 0;
+
+}
+
+function computerTurn (playerIconArray, currentPlayerIcon, board) {
+    // const emptyBoxes = document.getElementsByClassName
+    const emptySquares = Array.from(document.getElementsByClassName('part'));
+    // const emptySquares = Array.prototype.slice.call(allBoardSegments, 13, 22);
+    console.log(emptySquares);
+
+    if(emptySquares.length > 0) {
+        const randomIndex = Math.floor(Math.random() * emptySquares.length);
+        const randomSquare = emptySquares[randomIndex];
+        const computerIcon = playerIconArray.filter(icon => icon !== currentPlayerIcon[0]);
+        randomSquare.innerHTML = computerIcon;
+        randomSquare.classList.add(computerIcon === 'X' ? 'x-color' : 'o-color');
+        board[parseInt(randomSquare.dateset.index)] = computerIcon;
+        console.log(board);
+        currentPlayerIndex = (currentPlayerIndex + 1) % playerIconArray.length;
+    }
+}
+
+function easyDifficulty (board, turnCounter) {
+    const computerChoice = turnCounter;
+    if (board[computerChoice] === '') {
+        board[computerChoice].innerHTML = computerIcon;
+    }
+    
+    turnCounter++;
+    console.log('turn:', turnCounter);
+    return computerChoice;
+}
+
+function mediumDifficulty () {
     if (currentPlayerIcon === 'X') {
-        
+        console.log(board)
+        const randomIndex = Math.floor(Math.random() * 9);
+        console.log('randomIndex is', randomIndex);
+        const randomSquare = board[randomIndex];
+        console.log('randomSquare is: ', randomSquare);
+        const computerIcon = 'O';
+
+        if (randomSquare === '') {
+            board[randomIndex].innerHTML = computerIcon;
+            console.log('success')
+        } else {
+            playGame()
+        }
     } 
 }
-
-function computerTurn () {
-    const emptySpaces = document.querySelectorAll('.board')    
-}
-
 
 
 
