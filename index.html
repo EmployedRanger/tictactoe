@@ -42,16 +42,16 @@
             </div>
         </div>
         <div class="select-difficulty">
-            <button class="selection option easy" value="1" onclick="computerDiffEasy()">Easy</button>
-            <button class="selection option medium selected" value="2" onclick="computerDiffMedium()">Medium</button>
-            <button class="selection option hard" value="3" onclick="computerDiffHard()">Hard</button>
-            <button class="selection option impossible" value="4" onclick="computerDiffImpossible()">Impossible</button>
+            <button class="selection option easy" value="1">Easy</button>
+            <button class="selection option medium" value="2">Medium</button>
+            <button class="selection option hard" value="3">Hard</button>
+            <button class="selection option impossible" value="4">Impossible</button>
         </div>
         <div class="icon-selection-container">
-            <button class="icon selection x-selection selected" onclick="playerSelectedXxxxx()">X</button>
-            <button class="icon selection o-selection" onclick="playerSelectedOoooo()">O</button>
+            <button class="icon selection x-selection selected">X</button>
+            <button class="icon selection o-selection">O</button>
         </div>
-        <button class="begin-game selection" onclick="PageSwitch()">Begin Game</button>
+        <button class="begin-game selection">Begin Game</button>
     </div>
 
     <div class="play-game-page">
@@ -66,19 +66,19 @@
         <div class="container center">
             <div class="game-board">
                 <div class="top row">
-                    <button class="board-segment part"></button>
-                    <button class="board-segment part"></button>
-                    <button class="board-segment part"></button>
+                    <button id="1" class="board-segment"></button>
+                    <button id="2" class="board-segment"></button>
+                    <button id="3" class="board-segment"></button>
                 </div>
                 <div class="middle row">
-                    <button class="board-segment part"></button>
-                    <button class="board-segment part"></button>
-                    <button class="board-segment part"></button>
+                    <button id="4" class="board-segment"></button>
+                    <button id="5" class="board-segment"></button>
+                    <button id="6" class="board-segment"></button>
                 </div>
                 <div class="bottom row">  
-                    <button class="board-segment part"></button>
-                    <button class="board-segment part"></button>
-                    <button class="board-segment part"></button>
+                    <button id="7" class="board-segment"></button>
+                    <button id="8" class="board-segment"></button>
+                    <button id="9" class="board-segment"></button>
                 </div>
             </div>
         </div>
@@ -87,11 +87,11 @@
     <div class="pop-up">
         <div class="top-section">
             <p class="winner text">The winner is: </p>
-            <p class="winner is">Computer</p>
+            <p class="winner is"></p>
         </div>
         <div class="button-selection">
-            <button class="button main-menu" onclick="reloadPage()">Main Menu</button>
-            <button class="button try-again" onclick="beginGame()">Play Again</button>
+            <button class="button main-menu">Main Menu</button>
+            <button class="button try-again">Play Again</button>
         </div>
     </div>
     <script src="javascript.js"></script>
