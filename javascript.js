@@ -84,7 +84,6 @@ function applyEvents() {
     }
 
     function playerSelectedXxxxx () {
-        console.log('playerX ran')
         RemoveSelectedIconClass();
         const selectedPlayerIcon = document.querySelector('.x-selection');
         selectedPlayerIcon.classList.add('selected');
@@ -227,14 +226,25 @@ function applyEvents() {
             [0, 4, 8], [2, 4, 6]
         ];
         for (let i = 0; i < winningCombinations.length; i++) {
-            console.log(board)
             const [a, b, c] = winningCombinations[i];
             if (player.icon === board[a] && board[a] === board[b] && board[b] === board[c]) {
                 winnerMessage.innerHTML = player.name;
                 showMenu(board);
                 return true;
             }
+            // return
         }
+        // function checkTie() {
+        //     for (let i = 0; i < board.length; i++) {
+        //         if(!board[i] === '') {
+        //             checkTie();
+        //         } else {
+        //             winnerMessage.innerHTML = "It's a tie!";
+        //             showMenu(board);    
+        //         }
+        //     }
+        // }
+        // checkTie();
     }
     
     function resetGame() {
@@ -243,17 +253,24 @@ function applyEvents() {
             document.getElementById(i).innerHTML = '';
         }
     }
-    
+
     function computerTurn(board, difficultySetting, computerPlayer) {
+        console.log('difficulty setting:', difficultySetting)
         if (difficultySetting === 1) {
             easyDifficulty(board, computerPlayer);
         } else if(difficultySetting === 2) {
             mediumDifficulty(board, computerPlayer);
+        } else if(difficultySetting === 3) {
+            hardDifficulty(board, computerPlayer)
+        } else if(difficultySetting === 4) {
+            minimax(board, computerPlayer);
         }
-        const result = checkWinningCases(board, computerPlayer);
+        console.log(board)
+        checkWinningCases(board, computerPlayer);
     }
     
     function easyDifficulty (board, computerPlayer) {
+        console.log('easy ran')
         for (let i = 0; i < board.length; i++) {
             if (board[i] === '') {
                 board[i] = computerPlayer.icon;
@@ -272,38 +289,107 @@ function applyEvents() {
         let index = Math.floor(Math.random() * 9);
         console.log('index is:', index);
         console.log('boardIndex:', board[index])
-        if (board[index] === '') {
-          board[index] = computerPlayer.icon;
-          document.getElementById(index + 1).innerHTML = computerPlayer.icon;
+        if (board[index] === '') { 
+            selectedSquare = document.getElementById(index + 1);
+            board[index] = computerPlayer.icon;
+            setTimeout(() => {
+                selectedSquare.innerHTML = computerPlayer.icon;
+                selectedSquare.classList.add(computerPlayer.icon === 'X' ? 'x-color' : 'o-color');
+            }, 100);
         } else {
           mediumDifficulty(board, computerPlayer);
         }
     }
+
+    function computerDiffHard() {
+        return;
+    }
+
+    function emptySquares(board) {
+        const emptyAvilSquares = [];
+        for (let i = 0; i < board.length; i++) {
+            if (board[i] === '') {
+                emptyAvilSquares.push(i);
+            }            
+        }
+        return emptyAvilSquares;
+    }
+
+    function minimax(board, player) {
+        console.log('minimax was called')
+        let availSpots = emptySquares(board);
     
+        if (checkWinningCases(board, player)) {
+            return { score: -10 };
+        } else if (checkWinningCases(board, player)) {
+            return { score: 10 };
+        } else if (availSpots.length === 0) {
+            return { score: 0 };
+        }
+        let moves = [];
+        for (let i = 0; i < availSpots.length; i++) {
+            let move = {};
+            move.index = board[availSpots[i]];
+            board[availSpots[i]] = player;
+    
+            if (player == player) {
+                let result = minimax(board, player);
+                move.score = result.score;
+            } else {
+                let result = minimax(board, player);
+                move.score = result.score;
+            }
+    
+            board[availSpots[i]] = move.index;
+    
+            moves.push(move);
+        }
+    
+        let bestMove;
+        if (player === player) {
+            let bestScore = -10000;
+            for (let i = 0; i < moves.length; i++) {
+                if (moves[i].score > bestScore) {
+                    bestScore = moves[i].score;
+                    bestMove = i;
+                }
+            }
+        } else {
+            let bestScore = 10000;
+            for (let i = 0; i < moves.length; i++) {
+                if (moves[i].score < bestScore) {
+                    bestScore = moves[i].score;
+                    bestMove = i;
+                }
+            }
+        }
+    
+        return moves[bestMove];
+    }
+   
     const Player = (name, icon) => {
         return {
             name,
             icon
         };
     }
+
+    function showMenu(board) {
+        popUp.style.display = 'block';
+        playGamePage.style.filter = 'blur(2px)';
+        const segmentPieces = document.getElementsByClassName('board-segment');
+        const boardNineSquares = Array.prototype.slice.call(segmentPieces, 13);
+        
+        boardNineSquares.forEach((square, index) => {
+            square.removeEventListener('click', () => {
+                console.log('removeEventListener')
+                playerTurn(board, square, humanPlayer, computerPlayer);
+            });
+        });   
+        return board;
+    }
 }
 
-function showMenu(board) {
-    popUp.style.display = 'block';
-    playGamePage.style.filter = 'blur(2px)';
-    const segmentPieces = document.getElementsByClassName('board-segment');
-    console.log('segmentPieces: ', segmentPieces)
-    const boardNineSquares = Array.prototype.slice.call(segmentPieces, 13);
-    console.log('9 square array:', boardNineSquares)
-    
-    boardNineSquares.forEach((square, index) => {
-        square.removeEventListener('click', () => {
-            console.log('removeEventListener')
-            playerTurn(board, square, humanPlayer, computerPlayer);
-        });
-    });   
-    return board;
-}
 
 function removeSelectedClass () {
     const allSelectionOptions = document.querySelectorAll('.selection.option');
